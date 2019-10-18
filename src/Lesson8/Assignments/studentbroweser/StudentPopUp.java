@@ -5,6 +5,8 @@
  */
 package Lesson8.Assignments.studentbroweser;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author mitc2200
@@ -14,6 +16,7 @@ public class StudentPopUp extends javax.swing.JDialog {
     /**
      * Creates new form StudentPopUp
      */
+    Student temp;
     public StudentPopUp(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -97,6 +100,18 @@ public class StudentPopUp extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnokActionPerformed
+        int marks[] = new int [3];
+        String name = txtdname.getText();
+        try{
+        marks[0] = Integer.parseInt(table.getValueAt(0,0).toString());
+        marks[1] = Integer.parseInt(table.getValueAt(0,1).toString());
+        marks[2] = Integer.parseInt(table.getValueAt(0,2).toString());
+    } catch(Exception e){
+        JOptionPane.showMessageDialog(this,"Fill out all fields\n (press <enter> on each mark)");
+        return;
+    }
+        temp = new Student(name,marks);
+        getStudent();
         this.dispose();
     }//GEN-LAST:event_btnokActionPerformed
 
@@ -141,6 +156,15 @@ public class StudentPopUp extends javax.swing.JDialog {
             }
         });
     }
+      public void setForm(Student s){
+        txtdname.setText(s.getName());
+          for (int i = 0; i < 3; i++) {
+              table.setValueAt(s.getMark(i+1),0,i);
+          }
+    }
+      public Student getStudent(){
+          return temp;
+      }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnok;
