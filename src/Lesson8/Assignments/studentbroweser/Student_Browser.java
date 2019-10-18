@@ -5,6 +5,8 @@
  */
 package Lesson8.Assignments.studentbroweser;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author mitc2200
@@ -15,34 +17,35 @@ public class Student_Browser extends javax.swing.JFrame {
      * Creates new form Student_Browser
      */
     Student s[];
-    int size,index;
+    int size, index;
+
     public Student_Browser() {
         initComponents();
         s = new Student[10];
         fillData();
         showStudent();
     }
-    
-    public void fillData(){
-        String name[] = {"Matt Currie","Marta Cellery","Mitchell Decarlo","Joe Mamma","Hamead Wilson"};
-        int marks[][]={
-            {78,34,72},{39,1,56},{98,99,90},{78,86,99},{23,78,39}  
-    };
+
+    public void fillData() {
+        String name[] = {"Matt Currie", "Marta Cellery", "Mitchell Decarlo", "Joe Mamma", "Hamead Wilson"};
+        int marks[][] = {
+            {78, 34, 72}, {39, 1, 56}, {98, 99, 90}, {78, 86, 99}, {23, 78, 39}
+        };
         for (int i = 0; i < name.length; i++) {
-            s[i] = new Student(name[i],marks[i]);
+            s[i] = new Student(name[i], marks[i]);
         }
         size = 5;
-        index=0;
+        index = 0;
     }
-    
-    public void showStudent(){
-        txtname.setText(""+s[index].getName());
-        txtmark1.setText(""+s[index].getMark(1));
-        txtmark2.setText(""+s[index].getMark(2));
-        txtmark3.setText(""+s[index].getMark(3));
-        lblavg.setText(""+s[index].getAverage());
+
+    public void showStudent() {
+        txtname.setText("" + s[index].getName());
+        txtmark1.setText("" + s[index].getMark(1));
+        txtmark2.setText("" + s[index].getMark(2));
+        txtmark3.setText("" + s[index].getMark(3));
+        lblavg.setText("" + s[index].getAverage());
         lblcount.setText("" + size);
-        lblindex.setText("" + index);
+        lblindex.setText("" + (index + 1));
     }
 
     /**
@@ -106,6 +109,11 @@ public class Student_Browser extends javax.swing.JFrame {
         });
 
         btnmodify.setText("Modify");
+        btnmodify.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnmodifyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -138,6 +146,11 @@ public class Student_Browser extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnfirst.setText("<<");
+        btnfirst.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnfirstActionPerformed(evt);
+            }
+        });
 
         btnprev.setText("<");
         btnprev.addActionListener(new java.awt.event.ActionListener() {
@@ -154,6 +167,11 @@ public class Student_Browser extends javax.swing.JFrame {
         });
 
         btnlast.setText(">>");
+        btnlast.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnlastActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -267,9 +285,9 @@ public class Student_Browser extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(txtmark3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(lblavg, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblavg, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addGap(10, 10, 10)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -285,24 +303,63 @@ public class Student_Browser extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaddActionPerformed
-        StudentPopUp form = new StudentPopUp(this,true);
+        StudentPopUp form = new StudentPopUp(this, true);
         form.setModal(true);
         form.setLocationRelativeTo(this);
         form.setVisible(true);
-        System.out.println("This prints after form is dismissed");
+        Student temp = form.getStudent();
+        String em = temp.validateData();
+        if (em == null) {
+            s[size] = temp;
+            index = size;
+            size++;
+            showStudent();
+        } else {
+            JOptionPane.showMessageDialog(this, em);
+        }
     }//GEN-LAST:event_btnaddActionPerformed
 
     private void btnnextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnextActionPerformed
         index++;
-        if(index==size) index--;
+        if (index == size) {
+            index--;
+        }
         showStudent();
     }//GEN-LAST:event_btnnextActionPerformed
 
     private void btnprevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnprevActionPerformed
         index--;
-        if(index< 0) index=0;
+        if (index < 0) {
+            index = 0;
+        }
         showStudent();
     }//GEN-LAST:event_btnprevActionPerformed
+
+    private void btnlastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlastActionPerformed
+        index = (size - 1);
+        showStudent();
+    }//GEN-LAST:event_btnlastActionPerformed
+
+    private void btnfirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfirstActionPerformed
+        index = 0;
+        showStudent();
+    }//GEN-LAST:event_btnfirstActionPerformed
+
+    private void btnmodifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodifyActionPerformed
+        StudentPopUp form = new StudentPopUp(this, true);
+        form.setForm(s[index]);
+        form.setModal(true);
+        form.setLocationRelativeTo(this);
+        form.setVisible(true);
+        Student temp = form.getStudent();
+        String em = temp.validateData();
+        if (em == null) {
+            s[index] = temp;
+            showStudent();
+        } else {
+            JOptionPane.showMessageDialog(this, em);
+        }
+    }//GEN-LAST:event_btnmodifyActionPerformed
 
     /**
      * @param args the command line arguments
