@@ -6,7 +6,7 @@ import java.awt.Graphics;
 public class Craps {
 
     private dice dice1, dice2;
-    private int rollnum, point;
+    private int rollnum, point, total, newnum;
     private boolean newGame;
 
     Craps(Graphics g1, Graphics g2, int size1, int size2) {
@@ -25,6 +25,7 @@ public class Craps {
         rollnum++;
         dice1.roll();
         dice2.roll();
+        total = dice1.getValue() + dice2.getValue();
         if (rollnum == 1) {
             point = getTotal();
         }
@@ -33,7 +34,7 @@ public class Craps {
     }
 
     public int getTotal() {
-        return dice1.getValue() + dice2.getValue();
+        return total;
     }
 
     public boolean isNewGame() {
@@ -42,5 +43,44 @@ public class Craps {
 
     public int getPoint() {
         return point;
+    }
+
+    public boolean hasWon() {
+        if (rollnum == 1) {
+            newnum = total;
+            if (total == 7) {
+                return true;
+            } else if (total == 11) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (total == newnum) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    public boolean hasLost() {
+        if (rollnum == 1) {
+            if (total == 2) {
+                return true;
+            } else if (total == 3) {
+                return true;
+            } else if (total == 12) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (total == 7) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 }
