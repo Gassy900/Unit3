@@ -25,6 +25,7 @@ public class Crapsgame extends javax.swing.JFrame {
                 dicepanel1.getWidth(), dicepanel1.getWidth());
         
         money = 100;
+        moneylbl.setText("Money $" + money);
         
     }
 
