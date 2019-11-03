@@ -6,6 +6,7 @@ import java.awt.Color;
 public class Circle extends Shape
 {
     protected double radius;
+    private double per;
 
     public Circle(double x, double y, double r)
     {
@@ -49,7 +50,7 @@ public class Circle extends Shape
     
     @Override
     public void getPerimeter(){
-        
+       per = Math.PI * (radius + radius);
     }
     
 
@@ -58,6 +59,7 @@ public class Circle extends Shape
     {
         String str = "Circle\n======";
         str += "\nRadius: " + radius;
+        str += "\nCircumfrence: " + per;
         str += super.toString();
         return str;
     }

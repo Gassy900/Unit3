@@ -65,6 +65,11 @@ public class ShapeMaker extends javax.swing.JFrame {
         });
 
         btnwheel.setText("Wheel");
+        btnwheel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnwheelActionPerformed(evt);
+            }
+        });
 
         btnrect.setText("Rectangle");
         btnrect.addActionListener(new java.awt.event.ActionListener() {
@@ -211,40 +216,49 @@ public class ShapeMaker extends javax.swing.JFrame {
     }//GEN-LAST:event_btncircleActionPerformed
 
     private void btnmoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmoveActionPerformed
-       double x = Double.parseDouble(JOptionPane.showInputDialog(this,"Enter new x", "0"));
-       double y = Double.parseDouble(JOptionPane.showInputDialog(this,"Enter new y", "0"));
-       erase();
-       s.move(x,y);
-       s.draw(p);
-       txtinfo.setText(s.toString());
+        double x = Double.parseDouble(JOptionPane.showInputDialog(this, "Enter new x", "0"));
+        double y = Double.parseDouble(JOptionPane.showInputDialog(this, "Enter new y", "0"));
+        erase();
+        s.move(x, y);
+        s.draw(p);
+        txtinfo.setText(s.toString());
+
     }//GEN-LAST:event_btnmoveActionPerformed
 
     private void btnresizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnresizeActionPerformed
         erase();
-        double r = Double.parseDouble(JOptionPane.showInputDialog(this,"Enter new size","0"));
-        s. stretchBy(r);
+        double r = Double.parseDouble(JOptionPane.showInputDialog(this, "Enter new size", "0"));
+        s.stretchBy(r);
         s.draw(p);
     }//GEN-LAST:event_btnresizeActionPerformed
 
     private void btnrectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrectActionPerformed
         erase();
-        s = new Rect(0, 0, 100,50);
+        s = new Rect(0, 0, 100, 50);
         s.draw(p);
         txtinfo.setText(s.toString());
     }//GEN-LAST:event_btnrectActionPerformed
 
     private void btntriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntriaActionPerformed
         erase();
-        s = new Traingle(0, 0, 100,0,50,70);
+        s = new Traingle(0, 0, 100, 0, 50, 70);
         s.draw(p);
-        
+        txtinfo.setText(s.toString());
     }//GEN-LAST:event_btntriaActionPerformed
 
-      public void erase() {
+    private void btnwheelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnwheelActionPerformed
+        erase();
+        s = new Wheel(0, 0, 50, 6);
+        s.draw(p);
+        txtinfo.setText(s.toString());
+    }//GEN-LAST:event_btnwheelActionPerformed
+
+    public void erase() {
         p.setColor(Color.white);
         s.draw(p);
         p.setColor(Color.blue);
-      }
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

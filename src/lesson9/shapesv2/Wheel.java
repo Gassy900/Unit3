@@ -5,6 +5,7 @@ import TurtleGraphics.Pen;
 public class Wheel extends Circle
 {
     private double spokes;
+    private double per;
     //wheel has 4 properties
     //it inherits x, y, r, from Circle
     
@@ -41,6 +42,10 @@ public class Wheel extends Circle
         spokes = s;
     }
     
+    public void getPerimeter(){
+       per = Math.PI * (radius + radius);
+    }
+    
     public String toString()
     {
         String str = "Circle\n======";
@@ -48,6 +53,7 @@ public class Wheel extends Circle
         str += "\nyPos: " + yPos;
         str += "\nRadius: " + radius;
         str += "\nSpokes: " + spokes;
+        str += "\nCircumfrence: " + per;
         str += String.format("\nArea: %.2f", area());
         return str;
     }

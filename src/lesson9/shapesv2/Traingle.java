@@ -17,7 +17,7 @@ public class Traingle extends Shape { //{extends Shape {
 
     @Override
     double area() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         return Math.abs((xPos*y2-x2*yPos)+(x2*y3-x3*y2)+(x3*yPos-xPos*y3))/2;
     }
 
     @Override
@@ -27,12 +27,35 @@ public class Traingle extends Shape { //{extends Shape {
         p.down();
         p.move(x2, y2);
         p.move(x3, y3);
-        p.move(xPos,yPos);
+        p.move(xPos, yPos);
     }
 
     @Override
     void stretchBy(double factor) {
+        x2 = (x2-xPos) * factor + xPos;
+        y2 = (y2-yPos) * factor + yPos;
+        xPos = (xPos-x2) * factor + x2;
+        yPos = (yPos-y2) * factor + y2;
+        
+    }
+
+    @Override
+    void getPerimeter() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void move(double xloc, double yloc) {
+        double x = xloc - xPos;
+        double y = yloc - yPos;
+
+        xPos = xloc;
+        yPos = yloc;
+
+        x2 += x;
+        y2 += y;
+        x3 += x;
+        y3 += y;
+
     }
 
 }

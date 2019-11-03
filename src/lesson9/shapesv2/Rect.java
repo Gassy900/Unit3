@@ -5,7 +5,7 @@ import java.awt.Color;
 
 public class Rect extends Shape
 {
-    private double width, height;
+    private double width, height, per;
 
     public Rect(double x, double y, double w, double h)
     {
@@ -46,7 +46,6 @@ public class Rect extends Shape
     }
     
     public void getPerimeter(){
-        double per;
         per = (width + height) + (width + height);
     }
 
@@ -56,6 +55,7 @@ public class Rect extends Shape
         String str = "Rectangle\n=========";
         str += "\nWidth: " + width;
         str += "\nHeight: " + height;
+         str += "\nPerimeter: " + per;
         str += super.toString();
         return str;
     }
